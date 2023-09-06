@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   search_and_replace.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pferrete <pferrete@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paola <paola@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/06 12:00:17 by pferrete          #+#    #+#             */
-/*   Updated: 2023/09/06 12:21:12 by pferrete         ###   ########.fr       */
+/*   Updated: 2023/09/06 16:35:49 by paola            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdio.h>
 
 void	ft_putchr(int c)
 {
@@ -22,39 +23,27 @@ int	ft_strlen(char *str)
 	int	i;
 
 	i = 0;
-	while(str[i])
+	while (str[i])
 		i++;
 	return (i);
 }
 
-void	ft_replace(char *str, int i, char *replace)
-{
-	int	j;
-
-	j = 0;
-	if (ft_strlen(replace) == 1)
-	{
-		while (str[j])
-		{
-			if (j == i)
-				ft_putchr(*replace);
-			else
-				ft_putchr(str[j]);
-			j++;
-		}
-	}
-}
-void	ft_search(char *str, char *search, char *replace)
+void	search_replace(char *str, char *search, char *replace)
 {
 	int	i;
 
-	if (ft_strlen(search) == 1)
+	if (ft_strlen(search) == 1 && ft_strlen(replace) == 1)
 	{
 		i = 0;
 		while (str[i])
 		{
 			if (str[i] == search[0])
-				ft_replace(str, i, replace);
+			{
+				str[i] = replace[0];
+				ft_putchr(str[i]);
+			}
+			else
+				ft_putchr(str[i]);
 			i++;
 		}
 	}
@@ -62,7 +51,7 @@ void	ft_search(char *str, char *search, char *replace)
 
 int	main(int ac, char **av)
 {
-	if (ac == 3)
-		ft_search(av[1], av[2], av[3]);
+	if (ac == 4)
+		search_replace(av[1], av[2], av[3]);
 	ft_putchr('\n');
 }
